@@ -22,7 +22,7 @@ router.get('/register', (req, res) => {
 // Login form POST
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: 'ideas',
+    successRedirect: '/ideas',
     failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next);
@@ -78,6 +78,13 @@ router.post('/register', (req, res) => {
         }
       });
   }
+});
+
+// Logout user
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/users/login');
 });
 
 module.exports = router;
